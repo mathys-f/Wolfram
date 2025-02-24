@@ -52,14 +52,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
+    env:
+      STACK_ROOT: /tmp/.stack
+      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      - name: Set stack route
-        run: echo "export STACK_ROOT=/tmp/.stack" >> $GITHUB_ENV
       - name: Run make
         timeout-minutes: 2
-        run: make
+        run: |
+          mkdir -p $STACK_ROOT
+          chmod 777 $STACK_ROOT
+          make
       - name: Run clean
         run: make clean
       - name: Verify executables
@@ -77,14 +81,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
+    env:
+      STACK_ROOT: /tmp/.stack
+      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      - name: Set stack route
-        run: echo "export STACK_ROOT=/tmp/.stack" >> $GITHUB_ENV
       - name: Run tests
         timeout-minutes: 2
-        run: make tests_run
+        run: |
+          mkdir -p $STACK_ROOT
+          chmod 777 $STACK_ROOT
+          make tests_run
 
   push_to_mirror:
     name: push_to_mirror
