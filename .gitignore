@@ -1,0 +1,19 @@
+# Stack
+.stack-work/
+stack.yaml.lock
+wolfram.cabal
+
+# Compilation
+wolfram
+*.o
+
+# Unit tests
+unit_tests
+*.gcda
+*.gcno
+*.gcov
+
+# Others
+.vscode/
+vgcore*
+*.log

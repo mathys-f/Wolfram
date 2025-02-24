@@ -1,0 +1,6 @@
+# Resolver
+resolver: lts-23.3
+
+# Packages
+packages:
+- .

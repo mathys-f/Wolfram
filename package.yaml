@@ -1,0 +1,19 @@
+name: wolfram
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wextra
+- -Werror
+
+executables:
+  wolfram:
+    main:                Main.hs
+    source-dirs:         src
+
+tests:
+  unit_tests:
+    main:                Test.hs
+    source-dirs:         tests
