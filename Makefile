@@ -13,7 +13,7 @@ USER_RIGHT = --allow-different-user
 
 all:
 	stack build $(USER_RIGHT)
-	cp "`stack path --local-install-root`/bin/$(NAME) .
+	cp "`stack path --local-install-root`/bin/$(NAME)" ./$(NAME)
 
 clean:
 	stack clean $(USER_RIGHT)
