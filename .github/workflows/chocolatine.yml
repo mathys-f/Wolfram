@@ -52,19 +52,14 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
-    env:
-      STACK_ROOT: /tmp/.stack
-      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Permissions
+        run: "chown -R $(id -un):$(id -gn) ~"
       - name: Run make
         timeout-minutes: 2
-        run: |
-          mkdir -p $STACK_ROOT
-          chmod 777 $STACK_ROOT
-          export BUILD_DIR=$(stack path --local-install-root)
-          make
+        run: make
       - name: Run clean
         run: make clean
       - name: Verify executables
@@ -82,12 +77,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
-    env:
-      STACK_ROOT: /tmp/.stack
-      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Permissions
+        run: "chown -R $(id -un):$(id -gn) ~"
       - name: Run tests
         timeout-minutes: 2
         run: |
@@ -96,20 +90,20 @@ jobs:
           export BUILD_DIR=$(stack path --local-install-root)
           make tests_run
 
-  push_to_mirror:
-    name: push_to_mirror
-    if: ${{ github.event_name == 'push' }}
-    needs: run_tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        with:
-          fetch-depth: 0
-      - name: Mirroring Repository
-        uses: pixta-dev/repository-mirroring-action@v1.1.1
-        with:
-          target_repo_url:
-            ${{ env.MIRROR_URL }}
-          ssh_private_key:
-            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+  # push_to_mirror:
+  #   name: push_to_mirror
+  #   if: ${{ github.event_name == 'push' }}
+  #   needs: run_tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4.1.1
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Mirroring Repository
+  #       uses: pixta-dev/repository-mirroring-action@v1.1.1
+  #       with:
+  #         target_repo_url:
+  #           ${{ env.MIRROR_URL }}
+  #         ssh_private_key:
+  #           ${{ secrets.GIT_SSH_PRIVATE_KEY }}
