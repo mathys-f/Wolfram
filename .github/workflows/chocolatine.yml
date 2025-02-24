@@ -63,6 +63,7 @@ jobs:
         run: |
           mkdir -p $STACK_ROOT
           chmod 777 $STACK_ROOT
+          export BUILD_DIR=$(stack path --local-install-root)
           make
       - name: Run clean
         run: make clean
@@ -92,6 +93,7 @@ jobs:
         run: |
           mkdir -p $STACK_ROOT
           chmod 777 $STACK_ROOT
+          export BUILD_DIR=$(stack path --local-install-root)
           make tests_run
 
   push_to_mirror:
