@@ -9,13 +9,11 @@
 
 NAME = wolfram
 
-BUILD_DIR = $(shell stack path --local-install-root)
-
 USER_RIGHT = --allow-different-user
 
 all:
 	stack build $(USER_RIGHT)
-	cp $(BUILD_DIR)/bin/$(NAME) .
+	cp "`stack path --local-install-root`/bin/$(NAME) .
 
 clean:
 	stack clean $(USER_RIGHT)
