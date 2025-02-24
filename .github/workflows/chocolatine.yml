@@ -55,6 +55,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Set stack route
+        run: echo "export STACK_ROOT=/tmp/.stack" >> $GITHUB_ENV
       - name: Run make
         timeout-minutes: 2
         run: make
@@ -78,6 +80,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Set stack route
+        run: echo "export STACK_ROOT=/tmp/.stack" >> $GITHUB_ENV
       - name: Run tests
         timeout-minutes: 2
         run: make tests_run
