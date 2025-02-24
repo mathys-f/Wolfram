@@ -52,18 +52,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
-    env:
-      STACK_ROOT: /tmp/.stack
-      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - name: Run make
         timeout-minutes: 2
-        run: |
-          mkdir -p $STACK_ROOT
-          chmod 777 $STACK_ROOT
-          make
+        run: make
       - name: Run clean
         run: make clean
       - name: Verify executables
@@ -81,18 +75,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
-    env:
-      STACK_ROOT: /tmp/.stack
-      HOME: /tmp
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
       - name: Run tests
         timeout-minutes: 2
-        run: |
-          mkdir -p $STACK_ROOT
-          chmod 777 $STACK_ROOT
-          make tests_run
+        run: make tests_run
 
   push_to_mirror:
     name: push_to_mirror
